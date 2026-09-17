@@ -12,7 +12,7 @@ const MyJobs = () => {
   const navigate = useNavigate();
 
   const fetchJobs = () => {
-    axios.get('http://localhost:8080/api/jobs/my-jobs', { headers: { Authorization: `Bearer ${user.token}` }})
+    axios.get('/api/jobs/my-jobs', { headers: { Authorization: `Bearer ${user.token}` }})
       .then(res => setJobs(res.data)).catch(err => console.log(err));
   };
 
@@ -23,7 +23,7 @@ const MyJobs = () => {
 
   const viewApplicants = async (jobId) => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/applications/job/${jobId}`, { headers: { Authorization: `Bearer ${user.token}` } });
+      const res = await axios.get(`/api/applications/job/${jobId}`, { headers: { Authorization: `Bearer ${user.token}` } });
       const sortedApps = res.data.sort((a, b) => (b.aiScore || 0) - (a.aiScore || 0));
       setApplicants(sortedApps);
       setSelectedJob(jobId);
@@ -32,7 +32,7 @@ const MyJobs = () => {
 
   const updateJobStatus = async (jobId, status) => {
     try {
-      await axios.patch(`http://localhost:8080/api/jobs/${jobId}/status?status=${status}`, {}, { headers: { Authorization: `Bearer ${user.token}` } });
+      await axios.patch(`/api/jobs/${jobId}/status?status=${status}`, {}, { headers: { Authorization: `Bearer ${user.token}` } });
       toast.success(`Job marked as ${status}`);
       fetchJobs();
     } catch (err) { toast.error("Failed to update job status"); }
@@ -43,7 +43,7 @@ const MyJobs = () => {
     if (!email) return;
     const toastId = toast.loading('Sending magic link...');
     try {
-      await axios.post(`http://localhost:8080/api/applications/${appId}/request-feedback?email=${encodeURIComponent(email)}`, {}, {
+      await axios.post(`/api/applications/${appId}/request-feedback?email=${encodeURIComponent(email)}`, {}, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       toast.success('Email sent!', { id: toastId });
@@ -53,7 +53,7 @@ const MyJobs = () => {
 
   const updateCandidateStatus = async (appId, newStatus) => {
     try {
-      await axios.patch(`http://localhost:8080/api/applications/${appId}/status?status=${newStatus}`, {}, {
+      await axios.patch(`/api/applications/${appId}/status?status=${newStatus}`, {}, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       toast.success(`Candidate marked as ${newStatus}`);
@@ -67,7 +67,7 @@ const MyJobs = () => {
   const downloadResume = async (appId, seekerName) => {
     const toastId = toast.loading('Downloading resume...');
     try {
-      const response = await axios.get(`http://localhost:8080/api/applications/download/${appId}`, {
+      const response = await axios.get(`/api/applications/download/${appId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
         responseType: 'blob', // Important: Tells Axios we are expecting a binary file, not JSON
       });

@@ -12,7 +12,7 @@ const MyApplications = () => {
   useEffect(() => {
     if (!user || user.role !== 'SEEKER') { navigate('/'); return; }
 
-    axios.get('http://localhost:8080/api/applications/my-applications', {
+    axios.get('/api/applications/my-applications', {
       headers: { Authorization: `Bearer ${user.token}` }
     })
     .then(res => setApplications(res.data))

@@ -18,7 +18,7 @@ const PostJob = () => {
     const toastId = toast.loading('Publishing job...');
     setLoading(true);
     try {
-      await axios.post('http://localhost:8080/api/jobs', formData, { headers: { Authorization: `Bearer ${user.token}` } });
+      await axios.post('/api/jobs', formData, { headers: { Authorization: `Bearer ${user.token}` } });
       toast.success('Job posted successfully!', { id: toastId });
       setTimeout(() => navigate('/my-jobs'), 1500);
     } catch (error) { toast.error('Error posting job.', { id: toastId }); setLoading(false); }

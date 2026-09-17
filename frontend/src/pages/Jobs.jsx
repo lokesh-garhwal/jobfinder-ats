@@ -13,7 +13,7 @@ const Jobs = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/jobs').then(res => setJobs(res.data));
+    axios.get('/api/jobs').then(res => setJobs(res.data));
   }, []);
 
   // Dynamic Industries

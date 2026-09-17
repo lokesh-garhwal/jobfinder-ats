@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     const toastId = toast.loading('Signing in...');
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', formData);
+      const response = await axios.post('/api/auth/login', formData);
       // Pass the name from the backend to the login function
       login(response.data.token, response.data.role, response.data.name);
       toast.success(`Welcome back, ${response.data.name}!`, { id: toastId });

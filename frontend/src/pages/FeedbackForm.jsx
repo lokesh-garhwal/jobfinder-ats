@@ -11,7 +11,7 @@ const FeedbackForm = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/applications/feedback/${token}`)
+    axios.get(`/api/applications/feedback/${token}`)
       .then(res => setData(res.data))
       .catch(() => toast.error("Invalid or expired magic link."));
   }, [token]);
@@ -20,7 +20,7 @@ const FeedbackForm = () => {
     e.preventDefault();
     const toastId = toast.loading('Submitting...');
     try {
-      await axios.post(`http://localhost:8080/api/applications/feedback/${token}`, { rating, feedback });
+      await axios.post(`/api/applications/feedback/${token}`, { rating, feedback });
       toast.success('Feedback recorded!', { id: toastId });
       setSubmitted(true);
     } catch (err) {

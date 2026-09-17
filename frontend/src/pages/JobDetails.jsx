@@ -15,7 +15,7 @@ const JobDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/jobs/${id}`).then(res => setJob(res.data));
+    axios.get(`/api/jobs/${id}`).then(res => setJob(res.data));
   }, [id]);
 
   const handleApply = async (e) => {
@@ -32,7 +32,7 @@ const JobDetails = () => {
     const toastId = toast.loading('Submitting application...');
 
     try {
-      await axios.post(`http://localhost:8080/api/applications/apply/${id}`, formData, {
+      await axios.post(`/api/applications/apply/${id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${user.token}` }
       });
       toast.success("Application sent!", { id: toastId });

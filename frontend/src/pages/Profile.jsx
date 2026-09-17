@@ -14,7 +14,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!user) return;
-    axios.get('http://localhost:8080/api/users/profile', { headers: { Authorization: `Bearer ${user.token}` } })
+    axios.get('/api/users/profile', { headers: { Authorization: `Bearer ${user.token}` } })
     .then(res => {
       setFormData({
         fullName: res.data.fullName || '', email: res.data.email || '',
@@ -31,7 +31,7 @@ const Profile = () => {
     const toastId = toast.loading('Updating profile...');
     setLoading(true);
     try {
-      await axios.put('http://localhost:8080/api/users/profile', formData, { headers: { Authorization: `Bearer ${user.token}` } });
+      await axios.put('/api/users/profile', formData, { headers: { Authorization: `Bearer ${user.token}` } });
       toast.success('Profile updated successfully!', { id: toastId });
       if (formData.fullName !== user.name) {
           localStorage.setItem('name', formData.fullName);
@@ -56,7 +56,7 @@ const Profile = () => {
     const toastId = toast.loading('Updating password...');
     setPassLoading(true);
     try {
-      await axios.put('http://localhost:8080/api/users/change-password', {
+      await axios.put('/api/users/change-password', {
         currentPassword: passData.currentPassword,
         newPassword: passData.newPassword
       }, { headers: { Authorization: `Bearer ${user.token}` } });
