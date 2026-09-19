@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/jobs/**").permitAll()
                 .requestMatchers("/api/applications/test-ai", "/api/applications/feedback/**").permitAll()
+                    .requestMatchers("/error").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Explicitly permit preflight CORS
                 .anyRequest().authenticated()
             )
