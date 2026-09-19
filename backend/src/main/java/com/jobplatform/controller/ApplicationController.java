@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/applications")
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 public class ApplicationController {
 
     @Autowired private ApplicationRepository applicationRepository;
@@ -124,7 +124,7 @@ public class ApplicationController {
             app.setStatus("IN_REVIEW");
         }
         applicationRepository.save(app);
-        String magicLink = "http://localhost:5173/feedback/" + token;
+        String magicLink = "https://job-board-frontend-eight-zeta.vercel.app/feedback/" + token;
         emailService.sendFeedbackRequest(email, seeker.getFullName(), job.getTitle(), magicLink);
         return ResponseEntity.ok().body("{\"message\": \"Feedback email sent!\"}");
     }
